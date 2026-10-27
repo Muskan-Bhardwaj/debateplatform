@@ -1,0 +1,23 @@
+import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
+import { login, me, register } from '../controllers/auth.controller.js';
+import { protect } from '../middleware/auth.js';
+import { validate } from '../middleware/validate.js';
+import { loginSchema, registerSchema } from '../validators/auth.js';
+
+const router = Router();
+
+// Slows down password guessing and mass sign-ups.
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many attempts. Please try again in a few minutes.' },
+});
+
+router.post('/register', authLimiter, validate(registerSchema), register);
+router.post('/login', authLimiter, validate(loginSchema), login);
+router.get('/me', protect, me);
+
+export default router;
