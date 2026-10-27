@@ -2,7 +2,7 @@
 
 A MERN web application for running debate tournaments. Organizers set motions and create debates, judges score participants, and participants see their motions and the points they have earned.
 
-- **Live app:** _add your deployed URL_
+- **Live app:** https://debateplatform.vercel.app/
 - **Demo video:** _add your link_
 
 ## Problem Statement
